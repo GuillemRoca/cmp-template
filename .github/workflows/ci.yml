@@ -22,7 +22,7 @@ jobs:
         uses: gradle/gradle-build-action@v2.9.0
 
       - name: Build Android app
-        run: ./gradlew :androidApp:assembleDebug
+        run: ./gradlew :composeApp:assembleDebug
 
   build-ios:
     runs-on: macos-14
@@ -51,4 +51,4 @@ jobs:
         uses: gradle/gradle-build-action@v2.9.0
 
       - name: Build desktop app
-        run: ./gradlew :shared:run
+        run: ./gradlew :composeApp:run
