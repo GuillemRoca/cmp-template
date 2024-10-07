@@ -51,7 +51,7 @@ jobs:
         run: ./gradlew kotlinUpgradeYarnLock
 
       - name: Build Web app
-        run: ./gradlew :composeApp:wasmJsBrowserDevelopmentRun
+        run: ./gradlew :composeApp:assemble
 
   #build-jvm:
   #  runs-on: ubuntu-22.04
