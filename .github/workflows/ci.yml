@@ -1,4 +1,4 @@
-name: Android, iOS and JVM CI
+name: Android, iOS and Web CI
 
 on: pull_request
 
