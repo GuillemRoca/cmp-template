@@ -1,4 +1,4 @@
-name: Android, iOS and Web CI
+name: Web CI
 
 on: pull_request
 
@@ -8,36 +8,7 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  build-android:
-    runs-on: ubuntu-22.04
-    steps:
-      - uses: actions/checkout@v4
-
-      - uses: actions/setup-java@v4
-        with:
-          distribution: 'zulu'
-          java-version: 17
-
-      - name: kotlinUpgradeYarnLock
-        run: ./gradlew kotlinUpgradeYarnLock
-
-      - name: Build Android app
-        run: ./gradlew :composeApp:assembleDebug
-
-  build-ios:
-    runs-on: macos-14
-    steps:
-      - uses: actions/checkout@v4
-
-      - uses: actions/setup-java@v4
-        with:
-          distribution: 'zulu'
-          java-version: 17
-
-      - name: Build iOS app
-        run: xcodebuild -allowProvisioningUpdates -project iosApp/iosApp.xcodeproj -configuration Debug -scheme iosApp -sdk iphoneos -destination name='iPhone 14' build
-
-  build-web:
+  build:
     runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v4
