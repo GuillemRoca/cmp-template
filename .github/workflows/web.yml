@@ -2,6 +2,11 @@ name: Web CI
 
 on: pull_request
 
+# Cancel any current or previous job from the same PR
+concurrency:
+  group: ${{ github.head_ref }}
+  cancel-in-progress: true
+
 jobs:
   build:
     runs-on: ubuntu-22.04
