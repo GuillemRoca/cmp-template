@@ -18,8 +18,8 @@ jobs:
           distribution: 'zulu'
           java-version: 17
 
-      - name: Setup Gradle
-        uses: gradle/actions/setup-gradle@v3
+      - name: kotlinUpgradeYarnLock
+        run: ./gradlew kotlinUpgradeYarnLock
 
       - name: Build Android app
         run: ./gradlew :composeApp:assembleDebug
@@ -36,6 +36,22 @@ jobs:
 
       - name: Build iOS app
         run: xcodebuild -allowProvisioningUpdates -project iosApp/iosApp.xcodeproj -configuration Debug -scheme iosApp -sdk iphoneos -destination name='iPhone 14' build
+
+  build-web:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: 'zulu'
+          java-version: 17
+
+      - name: kotlinUpgradeYarnLock
+        run: ./gradlew kotlinUpgradeYarnLock
+
+      - name: Build Web app
+        run: ./gradlew :composeApp:wasmJsBrowserDevelopmentRun
 
   #build-jvm:
   #  runs-on: ubuntu-22.04
