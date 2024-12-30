@@ -1,4 +1,4 @@
-name: Android, iOS and Web CI
+name: Android, JVM, iOS and Web CI
 
 on: pull_request
 
@@ -9,14 +9,12 @@ concurrency:
 
 jobs:
   build-android:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
 
-      - uses: actions/setup-java@v4
-        with:
-          distribution: 'zulu'
-          java-version: 17
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v3
 
       - name: kotlinUpgradeYarnLock
         run: ./gradlew kotlinUpgradeYarnLock
@@ -24,8 +22,24 @@ jobs:
       - name: Build Android app
         run: ./gradlew :composeApp:assembleDebug
 
+  #build-jvm:
+  #  runs-on: ubuntu-latest
+  #  steps:
+  #    - uses: actions/checkout@v4
+  #
+  #    - uses: actions/setup-java@v4
+  #      with:
+  #        distribution: 'zulu'
+  #        java-version: 17
+  #
+  #    - name: Setup Gradle
+  #      uses: gradle/gradle-build-action@v2.9.0
+  #
+  #    - name: Build desktop app
+  #      run: ./gradlew :composeApp:run
+
   build-ios:
-    runs-on: macos-14
+    runs-on: macos-latest
     steps:
       - uses: actions/checkout@v4
 
@@ -35,36 +49,18 @@ jobs:
           java-version: 17
 
       - name: Build iOS app
-        run: xcodebuild -allowProvisioningUpdates -project iosApp/iosApp.xcodeproj -configuration Debug -scheme iosApp -sdk iphoneos -destination name='iPhone 14' build
+        run: xcodebuild -allowProvisioningUpdates -project iosApp/iosApp.xcodeproj -configuration Debug -scheme iosApp -sdk iphonesimulator
 
   build-web:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
 
-      - uses: actions/setup-java@v4
-        with:
-          distribution: 'zulu'
-          java-version: 17
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v3
 
       - name: kotlinUpgradeYarnLock
         run: ./gradlew kotlinUpgradeYarnLock
 
       - name: Build Web app
         run: ./gradlew :composeApp:assemble
-
-  #build-jvm:
-  #  runs-on: ubuntu-22.04
-  #  steps:
-  #    - uses: actions/checkout@v4
-
-  #    - uses: actions/setup-java@v4
-  #      with:
-  #        distribution: 'zulu'
-  #        java-version: 17
-
-  #   - name: Setup Gradle
-  #      uses: gradle/actions/setup-gradle@v3
-
-  #    - name: Build desktop app
-  #      run: ./gradlew :composeApp:run
