@@ -113,7 +113,7 @@ android {
 
 compose.desktop {
     application {
-        mainClass = "dev.guillem.cmp.MainKt"
+        mainClass = "MainKt"
 
         nativeDistributions {
             targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
