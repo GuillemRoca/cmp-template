@@ -5,7 +5,26 @@
 
 version: 2
 updates:
-  - package-ecosystem: "gradle" # See documentation for possible values
-    directory: "/" # Location of package manifests
+  - package-ecosystem: "gradle"
+    directory: "/"
     schedule:
-      interval: "weekly"
+      interval: "daily"
+    assignees:
+      - "GuillemRoca"
+    groups:
+      kotlin-dependencies:
+        patterns:
+          - "org.jetbrains.kotlin.*"
+          - "org.jetbrains.kotlin:kotlin-bom"
+          - "org.jetbrains.kotlin:kotlin-gradle-plugin"
+          - "org.jetbrains.kotlin:kotlin-reflect"
+          - "org.jetbrains.kotlin:kotlin-test"
+      minor-patch-dependencies:
+        patterns:
+          - "*"
+        update-types:
+          - "minor"
+          - "patch"
+        exclude-patterns:
+          - "org.jetbrains.kotlin.*"
+          - "org.jetbrains.kotlin:*"
